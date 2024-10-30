@@ -1,0 +1,18 @@
+.landing-box{
+    /* margin-top: -20px    ; */
+    padding-top: 20px;
+    background-image: url('./images/landing2_1.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.landing-container {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Text color */
+    text-align: center;
+  }
+  
+ 
