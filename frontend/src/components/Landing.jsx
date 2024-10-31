@@ -1,5 +1,5 @@
 import React from 'react';
-import './Landing.css'; // Make sure to create this CSS file in the same directory
+import './Landing.css';
 import Navbar from './Navbar';
 const Landing = () => {
   return (
@@ -7,7 +7,7 @@ const Landing = () => {
     <div className='landing-box'>
         <Navbar />
         <div className="landing-container"> 
-                   
+            <h1 className='sapplinns'>Sapplinns</h1>
         </div>
     </div>
     </>

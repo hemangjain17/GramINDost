@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './CropPrediction.css';
+import './HealthMonitoring.css';
 
-function CropPrediction() {
+function HealthMonitoring() {
   const [predictedCropIdx, setPredictedCropIdx] = useState(null);
   const [responseMessage, setResponseMessage] = useState('');
   const [cropInfo, setCropInfo] = useState('');
@@ -47,7 +47,7 @@ function CropPrediction() {
   const handleGenerateCropInfo = async () => {
     try {
       if (predictedCropIdx === null) {
-        alert("Please predict the crop first!");
+        alert("Please enter details first!");
         return;
       }
       setLoading(true);
@@ -63,7 +63,7 @@ function CropPrediction() {
 
   return (
     <div className="crop-prediction">
-      <div className='prediction-head'>Predict The Crop</div>
+      <div className='monitoring-head'>Know Soil Health</div>
       <div className="input-container">
         <label>Nitrogen (N) <span>  : </span>
           <input type="number" value={nitrogen} onChange={(e) => setNitrogen(e.target.value)} />
@@ -107,7 +107,7 @@ function CropPrediction() {
       </div>
 
       <button className= "button" onClick={handlePredictCrop} disabled={loading}>
-        {loading ? "Predicting..." : "Predict Crop"}
+        {loading ? "Fetching Details..." : "Get Details"}
       </button>
 
       {predictedCropIdx !== null && (
@@ -129,4 +129,4 @@ function CropPrediction() {
   );
 }
 
-export default CropPrediction;
+export default HealthMonitoring;

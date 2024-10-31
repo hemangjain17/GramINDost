@@ -1,7 +1,7 @@
-/* navbar.css */
+
 .navbar {
-  width: 50%;
-  height: 60px; /* Translucent purple */
+  width: 40%;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,13 +14,13 @@
   color: black;
   background-color: #90df82;
   position: relative;
-  z-index: 100000; /* Ensures the navbar is on top of other elements */
+  z-index: 100000;
 }
 .navbar-links {
   display: flex;
   align-items: center;
   gap: 20px;
-  font-family: 'Poppins', sans-serif; /* Elegant sans-serif font */
+  font-family: 'Poppins', sans-serif;
 }
 
 .navbar-links li {
@@ -29,13 +29,13 @@
   cursor: pointer;
   font-size: 18px;
   color: #1c1c1c;
-  letter-spacing: 1px; /* Adds spacing between letters */
-  transition: color 0.3s ease, transform 0.2s ease; /* Smooth transition for color and scale */
+  letter-spacing: 1px; 
+  transition: color 0.3s ease, transform 0.2s ease; 
 }
 
 .navbar-links li:hover {
   color: #000;
-  transform: scale(1.05); /* Slightly increases size on hover */
+  transform: scale(1.05);
   font-weight: bold;
 }
 
@@ -52,7 +52,7 @@
   margin: 20px;
   font-size: 16px;
   color: #000;
-  background-color: rgba(255, 255, 255, 0.2); /* Slightly translucent button background */
+  background-color: rgba(255, 255, 255, 0.2); 
   border: 1px solid #ffffff;
   border-radius: 5px;
   cursor: pointer;
@@ -61,5 +61,37 @@
 
 .navbar-button:hover {
   background-color: #ffffff;
-  color: #800080; /* Darker purple for hover */
+  color: #800080;
+}
+@media (max-width: 600px) {
+  .navbar {
+    display: none;
+  }
+  
+}
+
+@media (min-width: 600px) {
+  .navbar {
+    width: 90%;
+  }
+  
+}
+/*make responsive after 758 px*/
+@media (min-width: 768px) {
+  .navbar {
+    width: 70%;
+  }
+  
+}
+@media (min-width: 990px) {
+  .navbar {
+    width: 50%;
+  }
+  
+}
+@media (min-width: 1190px) {
+  .navbar {
+    width: 45%;
+  }
+  
 }

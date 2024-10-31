@@ -1,7 +1,6 @@
 import React from 'react';
+import MobileNavbar from './MobileNavbar';
 import './Navbar.css';
-// import Dashboard from './dashbaord';
-// import stockGraph from './stockgraph';
 
 const Navbar = () => {
   const handleNavigation = (path) => {
@@ -10,17 +9,18 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
+
+      {/* Desktop Links */}
       <ul className="navbar-links">
         <li onClick={() => handleNavigation('/')}>Home</li>
         <li onClick={() => handleNavigation('/dashboard')}>Features</li>
-        <li><h2>Sapplinns</h2></li>
+        <img src="./images/bg.png" width="50px" height="50px" alt="Sapplinns" className="navbar-logo" />
         <li onClick={() => handleNavigation('/graph-analyser')}>Tools</li>
         <li onClick={() => handleNavigation('/stock-graph')}>Contact Us</li>
       </ul>
-      {/* <div className="button">
-        <button className="navbar-button">Sign In</button>
-        <button className="navbar-button">Sign Up</button>
-      </div> */}
+
+      {/* Mobile Navbar Component */}
+      <MobileNavbar />
     </div>
   );
 };

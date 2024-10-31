@@ -1,6 +1,5 @@
 import react from 'react';
 import Tools from './components/Tools';
-// import Navbar from './components/Navbar';
 import Landing from './components/Landing';
 
 function App() {

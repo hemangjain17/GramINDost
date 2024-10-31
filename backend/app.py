@@ -5,22 +5,14 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Auto
 from flask_cors import CORS
 import os 
 import bitsandbytes as bnb
+
 app = Flask(__name__)
 CORS(app)
 
-# Check if CUDA is available
 print("CUDA available:", torch.cuda.is_available())
-
-# Define the path to the model directory
 model_path = r'C:\Users\itsta\OneDrive\Desktop\HEMANG\Smart Farm\smart-farm\backend\fine_tuned_bert_model'
 
-# Check if the model directory exists
-if os.path.exists(model_path):
-    print("Model directory found!")
-    # List the contents of the model directory
-    print("Contents of model directory:", os.listdir(model_path))
-    
-    # Load the tokenizer and model
+if os.path.exists(model_path):   
     tokenizer_seq = AutoTokenizer.from_pretrained(model_path)
     model_seq = AutoModelForSequenceClassification.from_pretrained(model_path)
     print("Model loaded successfully for sequence classification!")
@@ -61,7 +53,6 @@ crop_labels = {
     'coffee': 5
 }
 
-# Helper function to predict the crop index
 def predict_crop(text):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model_seq.to(device)
@@ -76,7 +67,6 @@ def predict_crop(text):
     print(predicted_class_idx)
     return predicted_class_idx
 
-# Helper function to generate crop description based on the predicted crop index
 def generate_crop_info(predicted_crop_idx):
     input_text = f"The predicted crop is {predicted_crop_idx}. Write a paragraph about its unique characteristics, uses, and its importance in agriculture."
     input_ids = tokenizer_gen.encode(input_text, return_tensors="pt")
@@ -85,12 +75,8 @@ def generate_crop_info(predicted_crop_idx):
     generated_text = tokenizer_gen.decode(outputs[0], skip_special_tokens=True)
     return generated_text
 
-# Define API endpoints
-
-# 1. Endpoint to predict crop based on hardcoded input data
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Get the N, P, K, and pH values from the request body (sent from frontend)
     data = request.json
     nitrogen = data.get('nitrogen')
     phosphorus = data.get('phosphorus')
@@ -101,29 +87,23 @@ def predict():
     if not all([nitrogen, phosphorus, potassium, ph_value]):
         return jsonify({'error': 'Please provide valid values for nitrogen, phosphorus, potassium, and pH.'}), 400
 
-    # Create the input text using the received values
     text = f"The nitrogen content is {nitrogen}, phosphorus is {phosphorus}, and potassium is {potassium}, pH is {ph_value} with a temperature of 20.86896°C. what is the crop grown under these situations?"
     index_to_crop = {}
     for crop, index in crop_labels.items():
-        if index not in index_to_crop:  # To handle multiple crops with the same index
+        if index not in index_to_crop: 
             index_to_crop[index] = []
         index_to_crop[index].append(crop)
-    # Predict the crop index based on the input text
     predicted_crop_idx = predict_crop(text)
     
-    # Get the crop names based on predicted index
     predicted_crops = index_to_crop.get(predicted_crop_idx, None)
 
-    # Print predicted crop names to the console
     if predicted_crops is not None:
         print(f"Predicted Crop Name: {predicted_crops}")
     else:
         print("Predicted index not found.")
   
-    # Return the predicted crop index as JSON
     return jsonify({'predicted_crop': predicted_crops})
 
-# 2. Endpoint to generate crop description based on predicted crop index
 @app.route('/generate', methods=['POST'])
 def generate():
     data = request.json
@@ -132,16 +112,10 @@ def generate():
     if predicted_crop_idx is None:
         return jsonify({'error': 'No predicted crop index provided'}), 400
 
-    # Generate crop information based on the predicted index
     generated_text = generate_crop_info(predicted_crop_idx)
-
-    # Print generated text to the console
     print(f"Generated Text for Crop Index {predicted_crop_idx}: {generated_text}")
 
     return jsonify({'generated_text': generated_text})
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-## 20 - rice 

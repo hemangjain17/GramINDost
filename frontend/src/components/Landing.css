@@ -1,5 +1,4 @@
 .landing-box{
-    /* margin-top: -20px    ; */
     padding-top: 20px;
     background-image: url('./images/landing2_1.png');
     background-size:cover;
@@ -7,12 +6,55 @@
     background-position: center;
 }
 .landing-container {
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white; /* Text color */
+    color: #23351c; 
     text-align: center;
   }
+  .sapplinns{
+    font-size: 100px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    position: relative;
+    left: 200px;
+    top: -250px;
+
+
+  }
+  @media (min-width: 500px) {
+    .sapplinns{
+        font-size: 70px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        position: relative;
+        left: 0px;
+        top: -250px;
+    }
+  
+}  
+  @media (min-width: 600px) {
+    .sapplinns{
+        font-size: 70px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        position: relative;
+        left: 0px;
+        top: -250px;
+    }
+  
+}  
+@media (min-width: 768px) {
+    .sapplinns{
+        font-size: 100px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        position: relative;
+        left: 200px;
+        top: -250px;
+    }
+  
+}  
   
  
