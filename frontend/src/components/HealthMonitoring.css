@@ -58,6 +58,7 @@
     border: none;
     border-radius: 5px;
   }
+
 @media (max-width: 600px) {
   .input-container {
     flex-direction: column;
@@ -77,5 +78,17 @@
   }
   .crop-prediction {
     width: 350px;
+  }
+}
+@media (max-width: 500px) {
+  
+  .crop-prediction {
+    width: 300px;
+  }
+}
+@media (max-width: 400px) {
+  
+  .crop-prediction {
+    width: 250px;
   }
 }

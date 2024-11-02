@@ -44,7 +44,30 @@
     /* color: #ecf39e; Highlighted color */
     margin-top: 10px;
   }
-  
+  @media (max-width: 500px) {
+    .sapplinns{
+        font-size: 70px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        top: -100px;
+    }
+    .sapplinns-subhead {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        width: 85%;
+        color: #1b3232;
+        text-align: center;
+        line-height: 1.4;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        top: -100px;
+      }
+
+  }
   @media (min-width: 500px) {
       .sapplinns{
           font-size: 90px;

@@ -9,20 +9,21 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar">
+    <>
+      {/* Desktop Navbar (hidden on small screens) */}
+      <div className="navbar">
+        <ul className="navbar-links">
+          <li onClick={() => handleNavigation('/')}>Home</li>
+          <li onClick={() => handleNavigation('/dashboard')}>Features</li>
+          <img src={logo} width="50px" height="50px" alt="Sapplinns" className="navbar-logo" />
+          <li onClick={() => handleNavigation('/graph-analyser')}>Tools</li>
+          <li onClick={() => handleNavigation('/stock-graph')}>Contact Us</li>
+        </ul>
+      </div>
 
-      {/* Desktop Links */}
-      <ul className="navbar-links">
-        <li onClick={() => handleNavigation('/')}>Home</li>
-        <li onClick={() => handleNavigation('/dashboard')}>Features</li>
-        <img src={logo} width="50px" height="50px" alt="Sapplinns" className="navbar-logo" />
-        <li onClick={() => handleNavigation('/graph-analyser')}>Tools</li>
-        <li onClick={() => handleNavigation('/stock-graph')}>Contact Us</li>
-      </ul>
-
-      {/* Mobile Navbar Component */}
+      {/* Mobile Navbar (visible on small screens) */}
       <MobileNavbar />
-    </div>
+    </>
   );
 };
 

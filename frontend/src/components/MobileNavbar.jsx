@@ -1,29 +1,28 @@
-// MobileNavbar.js
 import React, { useState } from 'react';
 import './MobileNavbar.css';
-import logo from './images/logo.svg';
+import logo from './images/logo.svg'; // Assuming logo is still used in mobile
+
 const MobileNavbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleNavigation = (path) => {
     window.location.href = path;
-    setIsMobileMenuOpen(false); // Close menu on navigation
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsOpen(false); // Close menu after navigation
   };
 
   return (
     <div className="mobile-navbar">
-      <img src={logo} className="mobile-logo" width="50px" height="50px" alt="Sapplinns" className="navbar-logo" />
-      {/* Burger Menu Icon */}
-      <button className="burger-menu" onClick={toggleMobileMenu}>
-        ☰
-      </button>
-
-      {/* Mobile Links */}
-      {isMobileMenuOpen && (
+      <div className="mobile-navbar-header">
+        <img src={logo} alt="Sapplinns" className="mobile-navbar-logo" />
+        <button className="menu-toggle" onClick={toggleMenu}>
+          ☰
+        </button>
+      </div>
+      {isOpen && (
         <ul className="mobile-navbar-links">
           <li onClick={() => handleNavigation('/')}>Home</li>
           <li onClick={() => handleNavigation('/dashboard')}>Features</li>

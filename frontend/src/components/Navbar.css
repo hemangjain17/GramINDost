@@ -1,4 +1,4 @@
-
+/* Base styling */
 .navbar {
   width: 40%;
   height: 60px;
@@ -16,6 +16,8 @@
   position: relative;
   z-index: 100000;
 }
+
+/* Navbar links styling */
 .navbar-links {
   display: flex;
   align-items: center;
@@ -24,13 +26,12 @@
 }
 
 .navbar-links li {
-  
   list-style-type: none;
   cursor: pointer;
   font-size: 18px;
   color: #1c1c1c;
-  letter-spacing: 1px; 
-  transition: color 0.3s ease, transform 0.2s ease; 
+  letter-spacing: 1px;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .navbar-links li:hover {
@@ -39,9 +40,10 @@
   font-weight: bold;
 }
 
-/* Importing Google Font */
+/* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* Navbar buttons styling */
 .navbar-buttons {
   display: flex;
   gap: 15px;
@@ -52,7 +54,7 @@
   margin: 20px;
   font-size: 16px;
   color: #000;
-  background-color: rgba(255, 255, 255, 0.2); 
+  background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid #ffffff;
   border-radius: 5px;
   cursor: pointer;
@@ -63,36 +65,36 @@
   background-color: #ffffff;
   color: #800080;
 }
+
+/* Responsive styling */
 @media (max-width: 600px) {
   .navbar {
-    display: none;
+    display: none; /* Hide desktop navbar */
   }
-  
 }
 
+/* Adjust navbar width based on viewport */
 @media (min-width: 600px) {
   .navbar {
     margin-top: 5px;
     width: 80%;
   }
-  
 }
-/*make responsive after 758 px*/
+
 @media (min-width: 768px) {
   .navbar {
     width: 70%;
   }
-  
 }
+
 @media (min-width: 990px) {
   .navbar {
     width: 50%;
   }
-  
 }
+
 @media (min-width: 1190px) {
   .navbar {
     width: 45%;
   }
-  
 }
