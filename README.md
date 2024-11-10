@@ -50,13 +50,13 @@ Follow these steps to clone and run the frontend React application for the Smart
    ```bash
    cd smart-farm-project/frontend
    ```
-3. **Install Dependencies
+3. **Install Dependencies**
 
    Run the following command to install all the necessary dependencies:   
    ```bash
    npm install
    ```
-4. **Start the Application
+4. **Start the Application**
 
    After the dependencies are installed, you can start the development server:
    ```bash
