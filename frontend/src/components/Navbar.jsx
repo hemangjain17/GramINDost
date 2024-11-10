@@ -14,9 +14,9 @@ const Navbar = () => {
       <div className="navbar">
         <ul className="navbar-links">
           <li onClick={() => handleNavigation('/')}>Home</li>
-          <li onClick={() => handleNavigation('/dashboard')}>Features</li>
+          <li onClick={() => handleNavigation('/dashboard')}>About Us </li>
           <img src={logo} width="50px" height="50px" alt="Sapplinns" className="navbar-logo" />
-          <li onClick={() => handleNavigation('/graph-analyser')}>Tools</li>
+          <li onClick={() => handleNavigation('/graph-analyser')}>Features</li>
           <li onClick={() => handleNavigation('/stock-graph')}>Contact Us</li>
         </ul>
       </div>

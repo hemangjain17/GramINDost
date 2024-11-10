@@ -1,6 +1,7 @@
 import React from 'react';
 import './Landing.css';
 import Navbar from './Navbar';
+import FAQ from './FAQ';
 const Landing = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const Landing = () => {
             </h3>
         </div>
     </div>
+    
     </>
   );
 };

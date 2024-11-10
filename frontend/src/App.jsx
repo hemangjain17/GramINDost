@@ -1,6 +1,8 @@
 import react from 'react';
 import Tools from './components/Tools';
 import Landing from './components/Landing';
+import FAQ from './components/FAQ';
+import AboutUs from './components/about';
 
 function App() {
   return (
@@ -8,8 +10,9 @@ function App() {
       
       {/* <div className="App"> */}
         <Landing />
-        
+        <AboutUs />
         <Tools />
+        <FAQ />
       {/* </div> */}
     </>
   );
