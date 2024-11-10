@@ -28,3 +28,17 @@ The **Health Monitoring** system uses sensors to keep track of plant and soil he
 - **Soil Moisture Sensors**: Check soil moisture levels.
 - **Nutrient Monitoring**: Ensure soil has enough nutrients.
 - **Environmental Sensors**: Monitor temperature and humidity.
+
+
+## How to Clone and Run the Frontend
+
+Follow these steps to clone and run the frontend React application for the Smart Farm Project.
+
+### Installation Steps
+
+1. **Clone the Repository**
+
+   First, clone the project repository to your local machine:
+
+   ```bash
+   git clone https://github.com/your-username/smart-farm-project.git
