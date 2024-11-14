@@ -3,61 +3,54 @@ import axios from 'axios';
 import './HealthMonitoring.css';
 
 function HealthMonitoring() {
-  const [predictedCropIdx, setPredictedCropIdx] = useState(null);
-  const [responseMessage, setResponseMessage] = useState('');
-  const [cropInfo, setCropInfo] = useState('');
+  const [healthInfo, setHealthInfo] = useState(null); // Store the health info as an object
   const [loading, setLoading] = useState(false);
 
   const [nitrogen, setNitrogen] = useState('');
   const [phosphorus, setPhosphorus] = useState('');
   const [potassium, setPotassium] = useState('');
   const [phValue, setPhValue] = useState('');
-  const [rainfall, setRainfall] = useState('');
-  const [humidity, setHumidity] = useState('');
+  const [crop, setCrop] = useState('');
   const [temperature, setTemperature] = useState('');
 
-  const handlePredictCrop = async () => {
+  const handleHealthInfo = async () => {
     try {
       setLoading(true);
-      if (!nitrogen || !phosphorus || !potassium || !phValue) {
-        alert('Please provide all values for N, P, K, and pH.');
+      if (!nitrogen || !phosphorus || !potassium || !phValue || !crop) {
+        alert('Please provide all values for N, P, K, Crop Grown on the Soil and pH.');
         setLoading(false);
         return;
       }
 
-      const response = await axios.post('http://127.0.0.1:5000/predict', {
+      // Post the soil data to the backend for health analysis
+      const response = await axios.post('http://127.0.0.1:5000/health', {
         nitrogen,
         phosphorus,
         potassium,
         ph: phValue,
-        rainfall,
-        humidity,
+        crop,
         temperature
       });
-
-      setPredictedCropIdx(response.data.predicted_crop);
-      setResponseMessage(JSON.stringify(response.data, null, 2));
+      console.log(response.data);
+      setHealthInfo(response.data); // Get health info directly from response
       setLoading(false);
     } catch (error) {
-      setResponseMessage('Error occurred during prediction');
+      setHealthInfo('Error occurred during prediction');
       setLoading(false);
     }
   };
 
-  const handleGenerateCropInfo = async () => {
-    try {
-      if (predictedCropIdx === null) {
-        alert("Please enter details first!");
-        return;
-      }
-      setLoading(true);
-      const response = await axios.post('http://127.0.0.1:5000/generate', {  
-        predicted_crop_idx: predictedCropIdx,
-      });
-      setCropInfo(response.data.generated_text);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
+  const renderHealthInfo = (data) => {
+    // Recursively render key-value pairs
+    if (typeof data === 'object') {
+      return Object.keys(data).map((key) => (
+        <div key={key}>
+          <h4>{key}</h4>
+          {renderHealthInfo(data[key])}
+        </div>
+      ));
+    } else {
+      return <p>{data}</p>;
     }
   };
 
@@ -95,34 +88,37 @@ function HealthMonitoring() {
       </div>
 
       <div className="input-container">
-        <label>Humidity <span>  : </span>
-          <input type="number" value={humidity} onChange={(e) => setHumidity(e.target.value)} />
+        <label>Crop Grown On The Soil <span>  : </span>
+          <input type="text" value={crop} onChange={(e) => setCrop(e.target.value)} />
         </label>
       </div>
 
-      <div className="input-container">
-        <label>Rainfall (mm)<span>  : </span>
-          <input type="number" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
-        </label>
-      </div>
-
-      <button className= "button" onClick={handlePredictCrop} disabled={loading}>
+      <button className="button" onClick={handleHealthInfo} disabled={loading}>
         {loading ? "Fetching Details..." : "Get Details"}
       </button>
 
-      {predictedCropIdx !== null && (
+      {loading && !healthInfo && (
         <div>
-          <h3>Predicted Crop Index: {predictedCropIdx}</h3>
-          <button className= "button" onClick={handleGenerateCropInfo} disabled={loading}>
-            {loading ? "Generating Info..." : "Generate Crop Info"}
-          </button>
+          <p>Loading...</p>
         </div>
       )}
 
-      {cropInfo && (
+      {healthInfo && healthInfo !== 'Error occurred during prediction' && (
         <div>
-          <h3>Generated Crop Info:</h3>
-          <p>{cropInfo}</p>
+          <h3>Health Information:</h3>
+          {renderHealthInfo(healthInfo)}
+        </div>
+      )}
+
+      {healthInfo === '' && !loading && (
+        <div>
+          <p>Please enter the soil details and click "Get Details" to get health information.</p>
+        </div>
+      )}
+
+      {healthInfo === 'Error occurred during prediction' && (
+        <div>
+          <p>Error occurred during prediction. Please try again.</p>
         </div>
       )}
     </div>
