@@ -185,7 +185,6 @@ def predict():
     phosphorus = data.get('phosphorus')
     potassium = data.get('potassium')
     ph_value = data.get('ph')
-    print(nitrogen, phosphorus, potassium, ph_value)
 
     if not all([nitrogen, phosphorus, potassium, ph_value]):
         return jsonify({'error': 'Please provide valid values for nitrogen, phosphorus, potassium, and pH.'}), 400
@@ -193,13 +192,14 @@ def predict():
     text = f"The nitrogen content is {nitrogen}, phosphorus is {phosphorus}, and potassium is {potassium}, pH is {ph_value} with a temperature of 20.86896°C. What is the crop grown under these situations?"
     index_to_crop = {}
     for crop, index in crop_labels.items():
-        if index not in index_to_crop: 
-            index_to_crop[index] = []
-        index_to_crop[index].append(crop)
+        index_to_crop.setdefault(index, []).append(crop)
+
     predicted_crop_idx = predict_crop(text)
-    
-    predicted_crops = index_to_crop.get(predicted_crop_idx, None)
-  
+    predicted_crops = index_to_crop.get(predicted_crop_idx, [])
+    print(f"Predicted Crops: {predicted_crops}")
+    if not predicted_crops:
+        return jsonify({'error': 'No crops found for the predicted index'}), 404
+    print (jsonify({'Predicted Crop': predicted_crops}))
     return jsonify({'Predicted Crop': predicted_crops})
 
 @app.route('/generate', methods=['POST'])

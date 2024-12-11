@@ -34,8 +34,8 @@ function CropPrediction() {
         humidity,
         temperature
       });
-
-      setPredictedCropIdx(response.data.predicted_crop);
+      console.log('API Response:', response.data);
+      setPredictedCropIdx(response.data['Predicted Crop']);
       setResponseMessage(JSON.stringify(response.data, null, 2));
       setLoading(false);
     } catch (error) {
