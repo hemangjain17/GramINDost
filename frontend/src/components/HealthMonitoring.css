@@ -11,6 +11,19 @@
     border: 3px solid #28a745;
     border-radius: 60px;
   }
+  .crop-prediction-2 {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid #28a745;
+    border-radius: 60px;
+  }
   
   .input-container {
     display: flex;
@@ -40,55 +53,123 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  
-  .input-container input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.2);
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
   }
   
-  
-  .button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px;
-    cursor: pointer;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-
-@media (max-width: 600px) {
-  .input-container {
-    flex-direction: column;
-    align-items: flex-start;
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
   }
   
-  .input-container label,
-  .input-container input {
-    width: 80%;
-    margin-right: auto;
-    margin-left: auto; 
+  th {
+    background-color: #f4f4f4;
   }
-  .button {
-    width: 80%;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .crop-prediction {
-    width: 350px;
-  }
-}
-@media (max-width: 500px) {
   
-  .crop-prediction {
-    width: 300px;
+  .monitoring-head {
+    font-size: 24px;
+    font-weight: bold;
   }
-}
-@media (max-width: 400px) {
   
-  .crop-prediction {
-    width: 250px;
+  /* For screens with a minimum width of 1190px */
+  @media (min-width: 1190px) {
+    .crop-prediction-2 {
+      display: block;
+      width: 100%;
+      padding: 0 20px;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      padding: 15px;
+    }
   }
-}
+  
+  /* For screens with a minimum width of 998px */
+  @media (min-width: 998px) {
+    .crop-prediction-2 {
+      width: 80%;
+      margin: 0 auto;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      padding: 12px;
+    }
+  }
+  
+  /* For screens with a minimum width of 768px */
+  @media (min-width: 768px) {
+    .crop-prediction-2 {
+      width: 90%;
+      margin: 0 auto;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      padding: 10px;
+    }
+  
+    .monitoring-head {
+      font-size: 20px;
+    }
+  }
+  
+  /* For screens with a maximum width of 600px */
+  @media (max-width: 600px) {
+    .crop-prediction-2 {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
+  
+    .monitoring-head {
+      font-size: 18px;
+    }
+  }
+  
+  /* For screens with a maximum width of 500px */
+  @media (max-width: 500px) {
+    .crop-prediction-2 {
+      width: 100%;
+      padding: 5px;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      padding: 6px;
+    }
+  
+    .monitoring-head {
+      font-size: 16px;
+    }
+  }
+  
+  /* For screens with a maximum width of 400px */
+  @media (max-width: 400px) {
+    .monitoring-head {
+      font-size: 14px;
+    }
+  }

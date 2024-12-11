@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request , jsonify 
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from flask_cors import CORS
@@ -21,28 +21,28 @@ else:
 client = InferenceClient(api_key="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")
 
 crop_labels = {
-    'rice': 20,
-    'maize': 11,
-    'chickpea': 1,
-    'kidneybeans': 9,
-    'mothbeans': 13,
-    'pigeonpeas': 18,
-    'mungbean': 11,
-    'blackgram': 1,
-    'lentil': 19,
-    'pomegranate': 1,
-    'banana': 1,
-    'mango': 0,
-    'grapes': 21,
-    'watermelon': 15,
-    'muskmelon': 16,
-    'apple': 0,
-    'orange': 16,
-    'papaya': 17,
-    'coconut': 0,
-    'cotton': 6,
-    'jute': 8,
-    'coffee': 5
+    'Rice': 20,
+    'Maize': 11,
+    'Chickpea': 7,
+    'Kidneybeans': 9,
+    'MothBeans': 13,
+    'Pigeon Peas': 18,
+    'Mungbean': 12,
+    'Blackgram': 2,
+    'Lentil': 19,
+    'Pomegranate': 3,
+    'Banana': 1,
+    'Mango': 0,
+    'Grapes': 21,
+    'Watermelon': 15,
+    'Muskmelon': 14,
+    'Apple': 10,
+    'Orange': 16,
+    'Papaya': 17,
+    'Coconut': 4,
+    'Cotton': 6,
+    'Jute': 8,
+    'Coffee': 5
 }
 
 def predict_crop(text):
@@ -76,6 +76,7 @@ def generate_crop_info(predicted_crop_idx):
             max_tokens=400,
             stream=True,
         )
+        
 
         generated_text = ""
         for chunk in stream:
@@ -87,23 +88,35 @@ def generate_crop_info(predicted_crop_idx):
     except Exception as e:
         print(f"Error during inference: {e}")
         return "Error generating text."
-def health_monitoring(nitrogen, phosphorus, potassium, ph_value, crop):
+
+def health_monitoring(nitrogen, phosphorus, potassium, ph_value, temp, conductivity, humidity, crop):
+    format = """{
+      "Nutrient Levels": {
+        "Nitrogen": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]",
+        "Phosphorus": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]",
+        "Potassium": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]",
+        "Temperature": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]",
+        "Humidity": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]",
+        "Conductivity": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]",
+        "pH Level": "[Assessment: e.g., high, optimal, or low, and its potential effects on crop growth]"
+      },
+      "Nutrient Deficiencies": "[List any 4 identified deficiencies based on the provided values in a concise paragraph]",
+      "Fertilizer Recommendations": "[Provide the type and quantitative amount of fertilizers needed to correct deficiencies or optimize nutrient levels]",
+      "Preventive Measures": "[Recommend any 3 strategies in one to two line to maintain soil health and prevent nutrient loss]"
+    }"""
+
     input_text = (
-        f"The nitrogen content is {nitrogen}, phosphorus is {phosphorus}, "
-        f"potassium is {potassium}, and pH is {ph_value} during the growth of {crop}.You are a Agriculture specialist, Please analyze the soil health based on these values. "
-        "Provide the response in the following structured format:\n\n"
-        "1. Nutrient Levels:\n"
-        "   - Nitrogen: [Provide assessment, e.g., high, optimal, or low, and potential effects]\n"
-        "   - Phosphorus: [Provide assessment, e.g., high, optimal, or low, and potential effects]\n"
-        "   - Potassium: [Provide assessment, e.g., high, optimal, or low, and potential effects]\n"
-        "   - pH Level: [Provide assessment, e.g., high, optimal, or low, and potential effects]\n\n"
-        "2. Nutrient Deficiencies:\n"
-        "   - [List any deficiencies, based on the input values in a paragraph]\n\n"
-        "3. Fertilizer Recommendations:\n"
-        "   - [Suggest the type and quantitative amount of fertilizer needed to correct deficiencies or optimize levels in a paragraph]\n\n"
-        "4. Preventive Measures:\n"
-        "   - [Recommend any preventive measures to maintain soil health and avoid nutrient loss in a paragraph ]\n\n"
-        "Please ensure that each section is clearly labeled and concise and output is returned in a json format for easy parsing."
+        "Analyze the soil health based on the following provided values:"
+        f"Nitrogen Content: {nitrogen} in milligrams per litre"
+        f"Phosphorus Content: {phosphorus} in milligrams per litre "
+        f"Potassium Content: {potassium} in milligrams per litre "
+        f"pH Level: {ph_value} "
+        f"Temperature: {temp} in degrees Celsius "
+        f"Humidity: {humidity} in percentage "
+        f"Conductivity: {conductivity} in Seimens per meter "
+        f"Crop: {crop} "
+        "You are an Agriculture Specialist. Based on these values, provide a detailed analysis of soil health in the following structured JSON formatonly without any further explanations:"
+        f"{format}"
     )
 
     messages = [
@@ -117,31 +130,33 @@ def health_monitoring(nitrogen, phosphorus, potassium, ph_value, crop):
         stream = client.chat.completions.create(
             model="microsoft/Phi-3.5-mini-instruct",
             messages=messages,
-            max_tokens=800,
+            max_tokens=1000,
             stream=True
         )
 
         generated_text = ""
         for chunk in stream:
-            generated_text += chunk.choices[0].delta.content
+            if 'choices' in chunk and 'delta' in chunk.choices[0]:
+                generated_text += chunk.choices[0].delta.content
+        print(f"Generated Text: {generated_text}")
+        json_match = re.search(r'\{.*\}', generated_text, re.DOTALL)
 
-        json_content = re.search(r'\{.*\}', generated_text, re.DOTALL)
-
-        if json_content:
-            print(f"Generated Health Info: {json_content.group(0)}")
+        if json_match:
+            extracted_json = json_match.group(0)
+            print(extracted_json)
         else:
-            print("No JSON found in the generated text.")
-
-        # Convert generated text to JSON format for better handling
+            print("No valid JSON found in the generated text.")
+        # Attempt to parse as JSON
         try:
-            return json.loads(json_content.group(0)) 
+            response_json = json.loads(extracted_json)
+            return response_json
         except json.JSONDecodeError:
-            print("Generated text is not valid JSON. Returning as plain text.")
-            return "Error generating health monitoring information."
+            print("Generated text is not valid JSON.")
+            return {"error": "Invalid JSON output from the model."}
 
     except Exception as e:
         print(f"Error during health monitoring: {e}")
-        return "Error generating health monitoring information."
+        return {"error": "Error generating health monitoring information."}
 
 @app.route('/health', methods=['POST'])
 def health():
@@ -151,14 +166,17 @@ def health():
     phosphorus = data.get('phosphorus')
     potassium = data.get('potassium')
     ph_value = data.get('ph')
+    temp = data.get('temperature')
+    conductivity = data.get('conductivity')
+    humidity = data.get('humidity')
     crop = data.get('crop')
 
-    if not all([nitrogen, phosphorus, potassium, ph_value, crop]):
+    if not all([nitrogen, phosphorus, potassium, ph_value, temp, conductivity, humidity, crop]):
         return jsonify({'error': 'Please provide valid values for nitrogen, phosphorus, potassium, and pH.'}), 400
 
-    health_info = health_monitoring(nitrogen, phosphorus, potassium, ph_value, crop)
+    health_info = health_monitoring(nitrogen, phosphorus, potassium, ph_value, temp, conductivity, humidity, crop) 
 
-    return jsonify({'health_info': health_info})
+    return jsonify(health_info)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -182,7 +200,7 @@ def predict():
     
     predicted_crops = index_to_crop.get(predicted_crop_idx, None)
   
-    return jsonify({'predicted_crop': predicted_crops})
+    return jsonify({'Predicted Crop': predicted_crops})
 
 @app.route('/generate', methods=['POST'])
 def generate():
