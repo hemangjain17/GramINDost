@@ -12,7 +12,7 @@ function CropPrediction() {
   const [phosphorus, setPhosphorus] = useState('');
   const [potassium, setPotassium] = useState('');
   const [phValue, setPhValue] = useState('');
-  const [rainfall, setRainfall] = useState('');
+  const [state, setState] = useState('');
   const [humidity, setHumidity] = useState('');
   const [temperature, setTemperature] = useState('');
 
@@ -30,7 +30,7 @@ function CropPrediction() {
         phosphorus,
         potassium,
         ph: phValue,
-        rainfall,
+        state,
         humidity,
         temperature
       });
@@ -102,7 +102,7 @@ function CropPrediction() {
 
       <div className="input-container">
         <label>Rainfall (mm)<span>  : </span>
-          <input type="number" value={rainfall} onChange={(e) => setRainfall(e.target.value)} />
+          <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
         </label>
       </div>
 

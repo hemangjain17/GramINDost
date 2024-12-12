@@ -185,11 +185,13 @@ def predict():
     phosphorus = data.get('phosphorus')
     potassium = data.get('potassium')
     ph_value = data.get('ph')
+    temperature = data.get('humidity')
+    humidity = data.get('temperature')
 
     if not all([nitrogen, phosphorus, potassium, ph_value]):
         return jsonify({'error': 'Please provide valid values for nitrogen, phosphorus, potassium, and pH.'}), 400
 
-    text = f"The nitrogen content is {nitrogen}, phosphorus is {phosphorus}, and potassium is {potassium}, pH is {ph_value} with a temperature of 20.86896°C. What is the crop grown under these situations?"
+    text = f"The nitrogen content is {nitrogen}, phosphorus is {phosphorus}, and potassium is {potassium}, pH is {ph_value} with a temperature of {temperature} and humidity {humidity}. What is the crop grown under these situations?"
     index_to_crop = {}
     for crop, index in crop_labels.items():
         index_to_crop.setdefault(index, []).append(crop)

@@ -1,27 +1,30 @@
 import React from 'react';
 import MobileNavbar from './MobileNavbar';
 import './Navbar.css';
-import logo from './images/logo.svg';
+import logo from './images/logo.png';
 
 const Navbar = () => {
-  const handleNavigation = (path) => {
-    window.location.href = path;
+  const handleNavigation = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <>
-      {/* Desktop Navbar (hidden on small screens) */}
+      {/* Desktop Navbar */}
       <div className="navbar">
         <ul className="navbar-links">
-          <li onClick={() => handleNavigation('/')}>Home</li>
-          <li onClick={() => handleNavigation('/dashboard')}>About Us </li>
+          <li onClick={() => handleNavigation('home')}>Home</li>
+          <li onClick={() => handleNavigation('about')}>About Us</li>
           <img src={logo} width="50px" height="50px" alt="Sapplinns" className="navbar-logo" />
-          <li onClick={() => handleNavigation('/graph-analyser')}>Features</li>
-          <li onClick={() => handleNavigation('/stock-graph')}>Contact Us</li>
+          <li onClick={() => handleNavigation('features')}>Features</li>
+          <li onClick={() => handleNavigation('contact')}>Contact Us</li>
         </ul>
       </div>
 
-      {/* Mobile Navbar (visible on small screens) */}
+      {/* Mobile Navbar */}
       <MobileNavbar />
     </>
   );
