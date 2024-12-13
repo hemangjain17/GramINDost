@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios" ;
+// import axios from "axios";
 import { Mail, MapPin, Phone } from "lucide-react";
 import "./footer.css";
 
@@ -7,31 +7,56 @@ const Footer = () => {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit();
+  const SPREADSHEET_ID = "1UF0MqggkcOFl73d1hPo7BvNFDCHP6LYKqcgicrE5zfE"; // Replace with your actual Google Sheet ID
+  const API_KEY = "AIzaSyAS1I3dTFtW6BcJUvXF7ybS8ZFdyP9Tfug"; // Replace with your Google Sheets API key
+  const RANGE = "Sheet1!A:B"; // The range where the data will be saved (can change)
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    // Check if the fields are filled
+    if (!email || !contact) {
+      setError("Both email and contact number are required.");
+      return;
     }
-  };
 
-  const handleSubmit = async () => {
     setLoading(true);
+    setError("");
+
+    // Prepare the data to send to Google Sheets
+    const data = {
+      values: [[email, contact]],
+    };
+
+    // Construct the URL for Google Sheets API to append data
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?valueInputOption=RAW&key=${API_KEY}`;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/submitForm", { email, contact });
-      if (response.data.success) {
-        alert("Your information has been submitted!");
+      // Send data to Google Sheets API
+      const response = await fetch(url, {
+        method: "PUT", // Use PUT method to update the values in the range
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Data submitted successfully!");
         setEmail("");
         setContact("");
       } else {
-        alert("There was an error submitting the form.");
+        const result = await response.json();
+        setError(result.error.message || "Failed to submit the data.");
       }
     } catch (error) {
-      console.error("Error submitting the form: ", error);
-      alert("Error submitting the form.");
+      setError("Error submitting the data: " + error.message);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
   return (
     <footer className="company-footer">
@@ -49,11 +74,14 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <Phone className="icon" size={20} />
-                <span className="contact-text"> (+91) </span>
+                <span className="contact-text"> (+91) 8447512857 </span>
               </div>
               <div className="contact-item">
                 <MapPin className="icon" size={20} />
-                <span className="contact-text"> Address</span>
+                <span className="contact-text">
+                  {" "}
+                  High tech machine tools nawlu colony faridabad
+                </span>
               </div>
             </div>
           </div>
@@ -145,32 +173,33 @@ const Footer = () => {
               </a>
             </div>
             <div className="newsletter-form">
-      <input
-        type="email"
-        placeholder="Enter your email"
-        className="newsletter-input"
-        aria-label="Email Input"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        onKeyDown={handleKeyDown}
-      />
-      <input
-        type="tel"
-        placeholder="Enter your contact number"
-        className="newsletter-input"
-        aria-label="Contact Number Input"
-        value={contact}
-        onChange={(e) => setContact(e.target.value)}
-        onKeyDown={handleKeyDown}
-      />
-      <button
-        className="newsletter-button"
-        onClick={handleSubmit}
-        disabled={loading}
-      >
-        {loading ? "Submitting..." : "Enter"}
-      </button>
-    </div>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="newsletter-input"
+                aria-label="Email Input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)}
+              />
+              <input
+                type="tel"
+                placeholder="Enter your contact number"
+                className="newsletter-input"
+                aria-label="Contact Number Input"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)}
+              />
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              <button
+                className="newsletter-button"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
