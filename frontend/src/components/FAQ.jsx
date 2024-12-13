@@ -7,7 +7,7 @@ import {
   Container,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import flowchart2 from './images/flowchart2.png';
 const faqs = [
   {
     question: 'How do I set up Sapplinns on my farm?',
@@ -38,10 +38,14 @@ const faqs = [
 
 export default function FAQ() {
   return (
+    <div className='main-head'>
+      
+    <div>
     <Container maxWidth="md" sx={{ py: 5 }}>
       <Typography variant="h3" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
         FAQs on Using Sapplinns
       </Typography>
+      
       {faqs.map((faq, index) => (
         <Accordion key={index} sx={{ mb: 2, boxShadow: 3, borderRadius: 2 }}>
           <AccordionSummary
@@ -49,9 +53,9 @@ export default function FAQ() {
             aria-controls={`panel${index}-content`}
             id={`panel${index}-header`}
             sx={{
-                backgroundColor: '#28a745', // Updated to a green shade
-                color: 'white',
-                borderRadius: '4px',
+              backgroundColor: '#28a745', // Updated to a green shade
+              color: 'white',
+              borderRadius: '4px',
             }}
             >
             <Typography sx={{ fontWeight: 'medium' }}>{faq.question}</Typography>
@@ -62,5 +66,7 @@ export default function FAQ() {
         </Accordion>
       ))}
     </Container>
+      </div>
+    </div>
   );
 }
