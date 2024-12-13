@@ -113,28 +113,38 @@
     display: flex;
   }
   
+  .newsletter-form {
+    display: flex;
+    flex-wrap: wrap; /* Ensures proper alignment for multiple inputs */
+    gap: 0.5rem; /* Adds space between inputs */
+  }
+  
   .newsletter-input {
-    background-color: #1a3d2e; /* Dark gray */
+    background-color: #1a3d2e; /* Dark green */
     color: #ffffff;
     padding: 0.75rem;
-    border-radius: 0.375rem 0 0 0.375rem;
-    border: 1px solid #4caf50; /* Gray border */
-    flex: 1;
+    border-radius: 0.375rem;
+    border: 1px solid #4caf50; /* Green border */
+    flex: 1; /* Ensures inputs take up equal width */
     outline: none;
+    min-width: 220px; /* Prevent inputs from shrinking too much */
   }
   
   .newsletter-button {
-    background-color: #4caf50; /* Blue button */
+    background-color: #4caf50; /* Green button */
     color: #ffffff;
     padding: 0.75rem 1.25rem;
-    border-radius: 0 0.375rem 0.375rem 0;
+    border-radius: 0.375rem;
     border: none;
     transition: background-color 0.3s ease;
+    cursor: pointer;
+    align-self: center; /* Ensures button aligns properly with inputs */
   }
   
   .newsletter-button:hover {
-    background-color: #388e3c; /* Hover dark blue */
+    background-color: #388e3c; /* Slightly darker green for hover */
   }
+  
   
   .footer-logo {
     max-width: 150px;

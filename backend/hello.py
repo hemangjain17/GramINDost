@@ -217,6 +217,23 @@ def generate():
 
     return jsonify({'generated_text': generated_text})
 
+@app.route('/api/submitForm', methods=['POST'])
+def submit_form():
+    try:
+        data = request.get_json()
+        email = data.get('email')
+        contact = data.get('contact')
+        
+        if not email or not contact:
+            return jsonify({"success": False, "message": "Email and contact are required"}), 400
+        
+        # Call function to append data to Google Sheets
+        append_to_sheet(email, contact)
+        return jsonify({"success": True})
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"success": False, "message": "Error submitting form"}), 500
 
 
 if __name__ == '__main__':
