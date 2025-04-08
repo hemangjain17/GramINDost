@@ -41,7 +41,7 @@ Follow these steps to clone and run the frontend React application for the Smart
    First, clone the project repository to your local machine:
 
    ```bash
-   git clone https://github.com/{your-username}/smart-farm.git
+   git clone https://github.com/jain-hemang/smart-farm.git
    ```
 2. **Navigate to the Frontend Directory**
 
