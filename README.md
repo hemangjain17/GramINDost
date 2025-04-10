@@ -2,8 +2,6 @@
 
 Welcome to **GramINDost**, a smart agriculture assistant designed to revolutionize the way farmers make decisions. By combining **machine learning**, **real-time sensors**, and a **user-friendly interface**, GramINDost supports farmers in choosing the right crops and maintaining soil and plant health — all in one intelligent dashboard.
 
-![Smart Farming](https://images.unsplash.com/photo-1587486913044-7e3cf3c3efab) <!-- Optional: Replace with your own relevant image -->
-
 ---
 
 ## 🚀 Overview
