@@ -83,7 +83,7 @@ Follow these steps to clone and run the frontend React application for the Smart
    ```bash
    npm start
    ```
---
+---
 
 ## 📌 Future Enhancements
 
