@@ -4,8 +4,9 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from flask_cors import CORS
 from huggingface_hub import InferenceClient
 import os
-import json 
 import re 
+import json 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -160,7 +161,6 @@ def health_monitoring(nitrogen, phosphorus, potassium, ph_value, temp, conductiv
 
 @app.route('/health', methods=['POST'])
 def health():
-    # Get the input data from the user
     data = request.json
     nitrogen = data.get('nitrogen')
     phosphorus = data.get('phosphorus')

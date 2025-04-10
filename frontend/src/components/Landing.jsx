@@ -8,7 +8,7 @@ const Landing = () => {
     <div className='landing-box'>
         <Navbar />
         <div className="landing-container"> 
-            <h1 className='sapplinns'>Sapplinns</h1>
+            <h1 className='sapplinns'>GramINDost</h1>
             <h3 className='sapplinns-subhead'>
               Empowering Farmers with Precision Technology and Insightful Solutions.<br />
               <span>Grow smarter, greener, and more resilient with Sapplinns.</span>
