@@ -1,6 +1,6 @@
-# Smart Farm Project
+# GramINDost
 
-Welcome to the **Smart Farm Project**! This project uses technology to help farmers grow crops more effectively. It focuses on two main areas: **Crop Prediction** and **Health Monitoring**.
+This project uses technology to help farmers grow crops more effectively. It focuses on two main areas: **Crop Prediction** and **Health Monitoring**.
 
 ## Introduction
 
